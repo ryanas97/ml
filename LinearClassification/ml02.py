@@ -1,6 +1,3 @@
-pip install pandas
-pip install matplotlib
-
 from pandas import read_csv
 import random
 from numpy import array
@@ -146,3 +143,4 @@ for epoch in range(1,101):
     plt.figure(3)
     plt.plot(epoch, accuracy, '-o')
     
+plt.show()
