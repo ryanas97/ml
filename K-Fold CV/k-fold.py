@@ -33,34 +33,50 @@ print(X)
 print(len(X))
 
 # Split a dataset into k folds
-def cross_validation_split(dataset, folds):
+def cross_validation_split(x1,x2,x3, folds):
     dataset_split = list()
-    dataset_copy = list(dataset)
-    fold_size = int(len(dataset) / folds)
+    dataset_copy1 = list(x1) 
+    dataset_copy2 = list(x2) 
+    dataset_copy3 = list(x3) 
+    fold_size = int((len(dataset)+len(dataver)+len(datavir))/folds)
     for i in range(folds):
         fold = list()
         while len(fold) < fold_size:
-            index = randrange(len(dataset_copy))
-            fold.append(dataset_copy.pop(index))
-        dataset_split.append(fold)
+            if len(dataset_copy1)>0: 
+                index1 = randrange(len(dataset_copy1))
+                fold.append(dataset_copy1.pop(index1))
+            if len(dataset_copy2)>0:
+                index2 = randrange(len(dataset_copy2))
+                fold.append(dataset_copy2.pop(index2))
+            if len(dataset_copy3)>0:
+                index3 = randrange(len(dataset_copy3))
+                fold.append(dataset_copy3.pop(index3))
+            if len(dataset_copy1)==0 and len(dataset_copy2)==0 and len(dataset_copy3)==0:
+                break
+            dataset_split.append(fold)
     return dataset_split
  
 # test cross validation split
 seed(1)
 dataset = []
+dataver = []
+datavir = []
 train = []
-for x in range(150):
-    dataset.append(x)
-test = cross_validation_split(dataset, 5)
-for i in range(5):
+# fold number
+fold = 5
+for x1 in range(50):
+    dataset.append(x1)
+    dataver.append(x1+50)
+    datavir.append(x1+100)
+test = cross_validation_split(dataset,dataver,datavir,fold)
+for i in range(fold):
     train.append(i)
-    print("Test ", i+1," : ",test[i])
+    print("Test ", i+1," : ",sorted(test[i],key=int))
     train[i] = [x for x in dataset if x not in test[i]]
+    train[i] += [x for x in dataver if x not in test[i]]
+    train[i] += [x for x in datavir if x not in test[i]]
     print("Train ", i+1," : ",train[i])
-    print(len(test[i]),len(train[i]),"\n")
-
-for x in range(len(train[0])) :
-    print(X[train[0][x]])
+    print("Test Data :",len(test[i]),"Train Data :",len(train[i]),"\n")
 
 pla = []
 ple = []
