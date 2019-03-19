@@ -53,7 +53,7 @@ def cross_validation_split(x1,x2,x3, folds):
                 fold.append(dataset_copy3.pop(index3))
             if len(dataset_copy1)==0 and len(dataset_copy2)==0 and len(dataset_copy3)==0:
                 break
-            dataset_split.append(fold)
+        dataset_split.append(fold)
     return dataset_split
  
 # test cross validation split
