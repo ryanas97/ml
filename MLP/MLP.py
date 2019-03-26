@@ -85,10 +85,10 @@ target = [[],[]]
 output = [[],[]]
 error = [[],[]]
 lambda_output = [[],[]]
-delta_v = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+delta_v = [[0,0],[0,0],[0,0],[0,0]]
 delta_bias2 = [0,0,0,0]
 lambda_hidden = [[],[],[],[]]
-delta_theta = [[],[],[],[]]
+delta_theta = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 delta_bias = [0,0,0,0] 
 
 targethid_test = [[],[],[],[]]
@@ -110,8 +110,8 @@ for i in range(0,4):
         theta[i].append(random.uniform(0,1))
     bias.append(random.uniform(0,1))
     
-# print("Theta : ", theta)
-# print("Bias : ", bias)
+#print("Theta : ", theta)
+#print("Bias : ", bias)
 
 for i in range(0,4):
     for j in range(0,2):
@@ -119,10 +119,10 @@ for i in range(0,4):
         if i==0:
             bias2.append(random.uniform(0,1))
 
-# print("V : ", v)
-# print("Bias 2 : ", bias2)
+#print("V : ", v)
+#print("Bias 2 : ", bias2)
 
-for epoch in range(1,1001):
+for epoch in range(1,201):
     print("Epoch : ", epoch)
     print("--------------------------------------------------------------------")
     print("TRAIN DATA")
@@ -170,7 +170,7 @@ for epoch in range(1,1001):
 
         for i in range(0,4):
             for j in range(0,4):
-                delta_theta[i] = X[i]*lambda_hidden[j]
+                delta_theta[i][j] = X[train[x]][i]*lambda_hidden[j]
             delta_bias[i] = lambda_hidden[i]
 
         #print("Delta Theta : ",delta_theta)
@@ -235,7 +235,7 @@ for epoch in range(1,1001):
     plot_error_test.append(error_array_test[0]/len(test))
     plot_accuracy_test.append(accuracy_array_test[0]/len(test))
     print("---------------------------------------------------------------------------------------------------------------")
-
+    
 # print("Epoch Array : ", plot_epoch)
 # print("Accuracy Array - Train : ", plot_accuracy)
 # print("Error Array - Train : ", plot_error)
